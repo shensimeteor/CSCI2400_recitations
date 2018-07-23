@@ -1,0 +1,22 @@
+1. copy these 3 files into the shell lab handout directory (i.e. in the same directory with the trace**.txt, tsh.c, tshref, ...)
+
+2. cd to handout directory
+
+3. before run, make sure you have compiled "tsh" (by command  "make")
+   run command: ./grade-shlab -f tsh.c -s .
+   If permission error reported, try: "chmod +x grade-shlab", "chmod +x checktsh" commands.
+    # -f: to specify the tsh.c file to compile & run
+    # -s: to specify the current directory as the handout directory
+During the run, it will make temp directories as: /tmp/tshtrace?? for each trace, compile the binaries, run traces in the temp directories, compare tsh output & tshref output for each traces, and give you the final score in the end. If inconsistence (difference of tsh & tshref output) is found, error prompt will be printed out, and points (3 per trace) will be deducted from 50. After running, please double check in the corresponding /tmp/tshtrace?? directory for these suspicious traces. You can compare the tsh.out and tshref.out manually by "vimdiff tsh.out tshref.out" (If you're not familiar with vim, you can open them with other text editor and compare them yourselves). You can add 3 points back if the only inconsistencies are of the following cases: (i.e. these are not errors)
+   a. PID is different
+   b. ps results are different for trace 11/12/13 -- But, ./myspin process should exist in both, and the process state should be identical
+   c. when killall, the order of printout "job terminated(stopped) by signal X" can be different
+
+   #NOTE. ./grade-shlab.pl seems to be able to tolerate the PID difference (case a), but not able to recognize the b/c cases. So we need to manually do comparison for those traces reported as errors, and add 3 points per trace if necessary.
+
+   #NOTE. this running ./grade-shlab.pl may take a while to run, because there're some "wait"(sleep) is some traces. 
+   1. the maximum waiting time for each trace should be no more than 10 seconds. If exceeded, probably some error. Try manually.
+   2. "trace02.txt" should be passed immediately. If stuck at "Checking trace02.txt ...", probably the student fails to implement the "exit" command. Try "exit" command manually.
+
+4. As mentioned above, for those reported-as-failure traces, do manual check. The tsh.out & tshref.out is saved in /tmp/tshtrace??.txt/ directory.
+
